@@ -1,10 +1,13 @@
 <h1>So many airplanes!</h1>
 
 <div class="container">
-	<a ng-href="/airplanes/new" class="btn btn-primary">Create a New Plane!</a>
+<span><a ng-href="/airplanes/new" class="btn btn-primary">Create a New Plane!</a></span>
+<form class="pull-right" role="search">
+		<input type="text" ng-model="searchTerm" class="form-control" placeholder="Filter the airplanes..">
+</form>
 </div>
 
-<div class="well container" ng-repeat="airplane in airplanes track by $index">
+<div class="well container" ng-repeat="airplane in airplanes | filter: searchTerm">
 	<a href="/airplanes/{{airplane._id}}">{{ airplane.manufacturer }} - {{ airplane.model }}</a>
 </div>
 

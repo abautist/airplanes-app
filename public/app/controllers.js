@@ -2,11 +2,14 @@ angular.module('AirplaneCtrls', ['AirplaneServices'])
 .controller('AirplaneCtrl', ['$scope', 'Airplane', function($scope, Airplane) {
 	$scope.airplanes = [];
 
+
 	Airplane.query(function success(data) {
 		$scope.airplanes = data;
+		$scope.searchItems = data;
 	}, function error(data) {
 		console.log(data);
 	});
+
 }]).controller('AirplaneNewCtrl', [
 	'$scope',
 	'$location',
