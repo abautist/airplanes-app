@@ -1,0 +1,11 @@
+<h1>So many airplanes!</h1>
+
+<div class="container">
+	<a ng-href="/airplanes/new" class="btn btn-primary">Create a New Plane!</a>
+</div>
+
+<div class="well container" ng-repeat="airplane in airplanes track by $index">
+	<a href="/airplanes/{{airplane._id}}">{{ airplane.manufacturer }} - {{ airplane.model }}</a>
+</div>
+
+<a href="/about">About</a>
