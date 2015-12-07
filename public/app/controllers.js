@@ -7,6 +7,23 @@ angular.module('AirplaneCtrls', ['AirplaneServices'])
 	}, function error(data) {
 		console.log(data);
 	});
+}]).controller('AirplaneNewCtrl', [
+	'$scope',
+	'$location',
+	'Airplane',
+	function($scope, $location, Airplane) {
+		$scope.createAirplane = function() {
+			var params = {
+				manufacturer: $scope.manufacturer,
+				model: $scope.model,
+				engines: $scope.engines,
+				image: $scope.image
+			}
+
+			var newAirplane = new Airplane(params);
+			newAirplane.$save();
+			$location.path('/');
+		}
 }]).controller('AirplaneShowCtrl', [
 	'$scope', 
 	'$routeParams', 
