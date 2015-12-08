@@ -14,6 +14,9 @@
   <script src="app/app.js"></script>
 </head>
 <body>
-	<ng-view></ng-view>
+  <div class="container"> 
+    <div ng-include="'app/views/navbar.html'"></div>
+    <ng-view></ng-view>
+  </div>
 </body>
 </html>

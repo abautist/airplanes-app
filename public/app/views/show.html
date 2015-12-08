@@ -1,8 +1,10 @@
-<h1>{{ airplane.manufacturer }} - <small> {{ airplane.model }} </small></h1>
-<div class="container">
-	<img ng-src="{{ airplane.image }}" />
+<div class="container well"
+	<h1>{{ airplane.manufacturer }} - <small> {{ airplane.model }} </small></h1>
+	<div class="container">
+		<img ng-src="{{ airplane.image }}" />
+	</div>
+
+	<a ng-href="/airplanes/delete/{{ airplane._id }}" class="btn btn-danger">Delete</a>
 </div>
-
-
 
 <a href="/">&larr; Back</a>

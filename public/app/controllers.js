@@ -37,4 +37,15 @@ angular.module('AirplaneCtrls', ['AirplaneServices'])
 		}, function error (data) {
 			console.log(data);
 		});
-	}]);
+}]).controller('AirplaneDeleteCtrl', [
+	'$location', 
+	'$routeParams', 
+	'Airplane', 
+	function($location, $routeParams, Airplane) {
+		Airplane.remove({id:$routeParams.id}, function success(data) {
+			$location.path('/');
+		}, function error(data) {
+			console.log(data);
+		});
+	}
+]);
