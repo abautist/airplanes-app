@@ -21,9 +21,25 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 		templateUrl: 'app/views/show.html',
 		controller: 'AirplaneShowCtrl'
 	})
+	.when('/login', {
+		templateUrl: 'app/views/userLogin.html',
+		controller: 'LoginCtrl'
+	})
+	.when('/signup', {
+		templateUrl: 'app/views/userLogin.html',
+		controller: 'SignupCtrl'
+	})
 	.otherwise({
 		templateUrl: 'app/views/404.html'
 	});
 
 	$locationProvider.html5Mode(true);
+}])
+.config(['$httpProvider', function($httpProvider) {
+	$httpProvider.interceptors.push('AuthInterceptor');
+}])
+.run(['$rootScope', 'Auth', function($rootScope, Auth) {
+	$rootScope.isLoggedIn = function() {
+		return Auth.isLoggedIn.apply(Auth);
+	}
 }]);

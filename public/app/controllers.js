@@ -10,7 +10,8 @@ angular.module('AirplaneCtrls', ['AirplaneServices'])
 		console.log(data);
 	});
 
-}]).controller('AirplaneNewCtrl', [
+}])
+.controller('AirplaneNewCtrl', [
 	'$scope',
 	'$location',
 	'Airplane',
@@ -27,7 +28,8 @@ angular.module('AirplaneCtrls', ['AirplaneServices'])
 			newAirplane.$save();
 			$location.path('/');
 		}
-}]).controller('AirplaneShowCtrl', [
+}])
+.controller('AirplaneShowCtrl', [
 	'$scope', 
 	'$routeParams', 
 	'Airplane',
@@ -37,7 +39,8 @@ angular.module('AirplaneCtrls', ['AirplaneServices'])
 		}, function error (data) {
 			console.log(data);
 		});
-}]).controller('AirplaneDeleteCtrl', [
+}])
+.controller('AirplaneDeleteCtrl', [
 	'$location', 
 	'$routeParams', 
 	'Airplane', 
@@ -48,4 +51,53 @@ angular.module('AirplaneCtrls', ['AirplaneServices'])
 			console.log(data);
 		});
 	}
-]);
+])
+.controller('NavCtrl', ['$scope', 'Auth', function($scope, Auth) {
+	$scope.logout = function() {
+		Auth.removeToken();
+	};
+}])
+.controller('LoginCtrl', [
+	'$scope',
+	'$http',
+	'$location',
+	'Auth',
+	function($scope, $http, $location, Auth) {
+		$scope.user = {
+			email: "",
+			password: ""
+		};
+		$scope.actionName = "Login";
+		$scope.userAction = function() {
+			$http.post('/api/auth', $scope.user).then(function success(res) {
+				Auth.saveToken(res.data.token);
+				$location.path('/');
+			}, function error(res) {
+				console.log(res.data);
+			});
+		};
+}])
+.controller('SignupCtrl', [
+	'$scope',
+	'$http',
+	'$location',
+	'Auth',
+	function($scope, $http, $location, Auth) {
+		$scope.user = {
+			email: "",
+			password: ""
+		};
+		$scope.actionName = "Signup";
+		$scope.userAction = function() {
+			$http.post('/api/users', $scope.user).then(function success(res) {
+				$http.post('/api/auth', $scope.user).then(function success(res) {
+					Auth.saveToken(res.data.token);
+					$location.path('/');
+				}, function error (res) {
+					console.log(res.data);
+				});
+			}, function error (res) {
+				console.log(res.data);
+			});
+		}
+}]);
